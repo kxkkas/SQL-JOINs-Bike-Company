@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW customer_order_summary AS
+SELECT 
+    o.order_id,
+    o.customer_id,
+    b.model_name,
+    b.price,
+    od.quantity,
+    (b.price * od.quantity) AS total_order_value,
+    p.payment_date,
+    p.method
+FROM orders o
+JOIN order_details od ON o.order_id = od.order_id
+JOIN bikes b ON od.bike_id = b.bike_id
+JOIN payments p ON o.order_id = p.order_id;
+
+
+
+
+SELECT * FROM customer_order_summary;
